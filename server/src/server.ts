@@ -1,3 +1,4 @@
+import cors from '@fastify/cors';
 import { fastify } from 'fastify';
 
 import { create_event } from './routes/e/create_event';
@@ -7,10 +8,13 @@ import { get_signature } from './routes/s/get_signature';
 import { post_signature } from './routes/s/post_signature';
 import { create_sr } from './routes/sr/create_sr';
 import { get_sr } from './routes/sr/get_sr';
-import { post_sr } from './routes/sr/post_sr';
 
 export const bootstrapServer = () => {
     const server = fastify({ logger: true });
+
+    server.register(cors, {
+        origin: '*',
+    });
 
     server.get('/', (request, response) => {
         response.send('Hello World!');
