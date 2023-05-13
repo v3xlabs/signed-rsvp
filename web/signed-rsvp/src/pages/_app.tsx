@@ -2,7 +2,7 @@ import 'tailwindcss/tailwind.css';
 import '@/styles/styles.css';
 
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
-import { Inter } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import { useRouter } from 'next/router';
 import { createClient, WagmiConfig } from 'wagmi';
 import { polygon } from 'wagmi/chains';
@@ -16,8 +16,8 @@ const client = createClient(
     })
 );
 
-const inter = Inter({
-    weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+const nunito = Nunito({
+    weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
     subsets: ['latin'],
 });
 
@@ -27,7 +27,7 @@ const App = ({ Component, pageProps }) => {
     // eslint-disable-next-line no-undef
     if (pathname === '/')
         return (
-            <div className={inter.className}>
+            <div className={nunito.className}>
                 <Component {...pageProps} />
             </div>
         );
@@ -35,7 +35,7 @@ const App = ({ Component, pageProps }) => {
     return (
         <WagmiConfig client={client}>
             <ConnectKitProvider theme="minimal" mode="light">
-                <div className={inter.className}>
+                <div className={[nunito.className, 'w-full'].join(' ')}>
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>

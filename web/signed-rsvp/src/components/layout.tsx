@@ -3,8 +3,8 @@ import { FC, PropsWithChildren } from 'react';
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
     return (
-        <div className="h-screen w-screen flex flex-col">
-            <a
+        <div className="h-screen w-full flex flex-col">
+            {/* <a
                 href="/"
                 className="flex justify-center items-center px-10 mt-44 py-4"
             >
@@ -13,8 +13,8 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
                     alt="logo"
                     className="w-96 mb-2"
                 />
-            </a>
-            <div className="w-full max-w-sm mx-auto md:px-0 px-6 text-lg">
+            </a> */}
+            <div className="max-w-md w-full md:px-0 px-6 text-lg">
                 <AnimatePresence>{children}</AnimatePresence>
             </div>
             <div className="absolute bottom-0 right-0 items-center pb-2 pr-2">

@@ -1,9 +1,8 @@
-
 function Home() {
     return (
-        <div className="h-screen w-screen flex items-center justify-center">
-            <div className="flex flex-col justify-center items-center">
-                You lost the game.
+        <div className="h-screen w-screen flex items-center">
+            <div className="mx-auto text-center">
+                <h1 className="text-4xl font-bold">Signed RSVP</h1>
             </div>
         </div>
     );
