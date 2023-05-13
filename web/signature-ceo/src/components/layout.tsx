@@ -1,21 +1,19 @@
 import { AnimatePresence } from 'framer-motion';
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+import { Logo } from './logo';
+
+export const Layout: FC = () => {
     return (
-        <div className="h-screen w-screen flex flex-col">
-            <a
-                href="/"
-                className="flex justify-center items-center px-10 mt-44 py-4"
-            >
-                <img
-                    src="/logounofficial.svg"
-                    alt="logo"
-                    className="w-96 mb-2"
-                />
-            </a>
-            <div className="w-full max-w-sm mx-auto md:px-0 px-6 text-lg">
-                <AnimatePresence>{children}</AnimatePresence>
+        <div className="bg-[#121212] text-white w-full min-h-screen flex">
+            <div className="mt-4 md:mt-48 flex items-center flex-col w-full">
+                <Logo />
+                <div className="w-full max-w-xl mx-auto md:px-0 px-6">
+                    <AnimatePresence>
+                        <Outlet />
+                    </AnimatePresence>
+                </div>
             </div>
             <div className="absolute bottom-0 right-0 items-center pb-2 pr-2">
                 <div>

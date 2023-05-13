@@ -1,5 +1,10 @@
-import { WagmiConfig, createClient } from "wagmi";
-import { ConnectKitProvider, getDefaultClient } from "connectkit";
+import { ConnectKitProvider, getDefaultClient } from 'connectkit';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createClient, WagmiConfig } from 'wagmi';
+
+import { Layout } from './components/layout';
+import { HomePage } from './pages';
+import { SelfSignPage } from './pages/sign';
 
 const client = createClient(
     getDefaultClient({
@@ -7,12 +12,33 @@ const client = createClient(
     })
 );
 
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Layout />,
+        children: [
+            {
+                path: '/',
+                element: <HomePage />,
+            },
+            {
+                path: '/s',
+                element: <SelfSignPage />,
+            },
+            {
+                path: '/:id',
+                element: <></>,
+            },
+        ],
+    },
+]);
+
 export const Document = () => {
     return (
         <WagmiConfig client={client}>
             <ConnectKitProvider theme="minimal" mode="light">
-                <h1>you lost the game.</h1>
+                <RouterProvider router={router} />
             </ConnectKitProvider>
         </WagmiConfig>
     );
-}
+};

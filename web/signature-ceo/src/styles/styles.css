@@ -3,5 +3,21 @@
 @tailwind utilities;
 
 .rsvpbtn {
-    @apply bg-gray-900 text-white py-3 w-full justify-center rounded-xl mt-4 focus:outline-none flex items-center overflow-hidden
+    @apply bg-gray-800 text-white py-3 w-full justify-center rounded-xl mt-4 focus:outline-none flex items-center overflow-hidden
+}
+
+.btn {
+    @apply bg-[#202023] px-4 py-3 rounded-3xl hover:brightness-150 transition-all flex items-center justify-center text-center text-sm;
+}
+
+.card {
+    @apply border-2 border-gray-400 px-4 py-2 rounded-md;
+}
+
+body {
+    @apply overflow-x-hidden;
+}
+
+textarea {
+    @apply border-2 border-gray-400 px-4 py-2 rounded-md;
 }
