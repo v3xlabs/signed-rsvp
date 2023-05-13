@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./src/styles/styles.css" />
+        <title>EdgeServer</title>
+        <link
+            rel="icon"
+            id="favicon"
+            href="./assets/favicon.svg"
+            type="image/svg+xml"
+            sizes="any"
+        />
+
+        <title>Signature CEO</title>
+        <meta name="title" content="Signature CEO" />
+        <meta name="description" content="You lost the game." />
+        <meta name="keywords" content="signed, rsvp, Signature CEO" />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://signature.ceo" />
+        <meta property="og:title" content="Signature CEO" />
+        <meta property="og:description" content="You lost the game." />
+        <meta
+            property="og:image"
+            content="https://signature.ceo/images/opengraph.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io/" />
+        <meta property="twitter:title" content="Signature CEO" />
+        <meta property="twitter:description" content="You lost the game." />
+        <meta
+            property="twitter:image"
+            content="https://signature.ceo/images/opengraph.png"
+        />
+
+        <title>Signature CEO</title>
+        <meta name="title" content="Signature CEO" />
+        <meta name="description" content="You lost the game." />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://signature.ceo" />
+        <meta property="og:title" content="Signature CEO" />
+        <meta property="og:description" content="You lost the game." />
+        <meta
+            property="og:image"
+            content="https://signature.ceo/images/opengraph.png"
+        />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://signature.ceo" />
+        <meta property="twitter:title" content="Signature CEO" />
+        <meta property="twitter:description" content="You lost the game." />
+        <meta
+            property="twitter:image"
+            content="https://signature.ceo/images/opengraph.png"
+        />
+    </head>
+
+    <body>
+        <div id="root"></div>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <script>
+            window.global = window;
+        </script>
+        <script type="module">
+            import EventEmitter from 'events';
+            window.EventEmitter = EventEmitter;
+        </script>
+        <script src="./src/index.tsx" type="module"></script>
+        <script>
+            /** Load Theme */
+            if (
+                localStorage.getItem('color-theme') === 'dark' ||
+                (!('color-theme' in localStorage) &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+
+            window.OG_FAVICON = document
+                .getElementById('favicon')
+                .getAttribute('href');
+        </script>
+    </body>
+</html>

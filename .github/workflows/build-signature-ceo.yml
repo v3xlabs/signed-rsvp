@@ -49,4 +49,4 @@ jobs:
           app_id: "180070817286066176"
           server: https://api.edgeserver.io
           token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: web/signature-ceo/out
+          directory: web/signature-ceo/dist
