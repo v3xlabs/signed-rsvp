@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rsvpbtn {
+    @apply bg-gray-900 text-white py-3 w-full justify-center rounded-xl mt-4 focus:outline-none flex items-center overflow-hidden
+}

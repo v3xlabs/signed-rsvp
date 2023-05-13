@@ -1,0 +1,52 @@
+name: Build signature.ceo Web
+
+on:
+  push:
+    paths:
+      - "web/signature-ceo/**"
+      - ".github/workflows/build-signature-ceo.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: cd web/signature-ceo && pnpm install
+
+      - name: Build
+        run: cd web/signature-ceo && pnpm build
+
+      - name: Edgeserver Upload
+        uses: lvkdotsh/edgeserver-action@master
+        with:
+          app_id: "180070817286066176"
+          server: https://api.edgeserver.io
+          token: ${{ secrets.SIGNAL_TOKEN }}
+          directory: web/signature-ceo/out
