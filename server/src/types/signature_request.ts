@@ -1,4 +1,4 @@
 export type SignatureRequest = {
-    signature_id: string;
+    id: string;
     payload: string;
 };

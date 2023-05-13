@@ -35,5 +35,5 @@ export const post_signature: RouteHandler<{
         sr_id: request.body.sr_id,
     });
 
-    return reply.status(200).send();
+    return reply.status(200).send({ id: signature_id });
 };

@@ -3,6 +3,7 @@
 
 import { Event } from './types/event';
 import { SignatureData } from './types/signature_data';
+import { SignatureRequest } from './types/signature_request';
 
 const events: Event[] = [
     {
@@ -28,4 +29,18 @@ export const getSignature = (signature_id: string): SignatureData => {
 
 export const saveSignature = (signature: SignatureData): void => {
     signatureStorage.push(signature);
+};
+
+const signatureRequestStorage: SignatureRequest[] = [];
+
+export const saveSignatureRequest = (
+    signatureRequest: SignatureRequest
+): void => {
+    signatureRequestStorage.push(signatureRequest);
+};
+
+export const getSignatureRequest = (
+    signatureRequest_id: string
+): SignatureRequest => {
+    return signatureRequestStorage.find((sr) => sr.id === signatureRequest_id);
 };

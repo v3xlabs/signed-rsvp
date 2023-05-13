@@ -22,7 +22,7 @@ export const bootstrapServer = () => {
             s.post('/', post_signature);
 
             // Get the information associated with a signature and its payload
-            s.get('/:sign_id', get_signature);
+            s.get('/:signature_id', get_signature);
 
             done();
         },
@@ -35,7 +35,8 @@ export const bootstrapServer = () => {
             s.get('/:signreq_id', get_sr);
 
             // Submit a signature to a specific signature request
-            s.post('/:signreq_id', post_sr);
+            // @deprecated in favor of POST /s
+            // s.post('/:signreq_id', post_sr);
 
             // Create a signature request
             s.post('/', create_sr);
