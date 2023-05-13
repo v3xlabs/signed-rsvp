@@ -12,33 +12,19 @@ const event = () => {
     const { push } = useRouter();
     useEffect(() => {
         if (isConnected) {
-            push(`/e/${event_id}/rsvp`);
+            push(`/e/${event_id}/proof`);
         }
     }, [isConnected]);
 
     return (
-        <div className="h-screen w-screen flex justify-center items-center">
+        <div className="h-full flex justify-center items-center">
             <div className="flex-col items-center justify-center flex">
-                <h1 className="text-4xl font-bold">
-                    Ronnie wants to see you rAAVE!
-                </h1>
-                <div className="mt-4">
-                    <Image
-                        src="/ronnie.png"
-                        alt="joe"
-                        width="200"
-                        height="400"
-                        className=""
-                    />
-                </div>
+                <h1 className="text-4xl font-bold">Ronnie wants your RSVP</h1>
                 <div className="mt-4">
                     <ConnectKitButton.Custom>
                         {({ isConnected, show, address }) => {
                             return (
-                                <button
-                                    onClick={show}
-                                    className="px-6 py-3 bg-purple-400 font-bold text-2xl rounded-lg text-white"
-                                >
+                                <button onClick={show} className="rsvpbtn">
                                     {isConnected ? address : 'Connect Wallet'}
                                 </button>
                             );
