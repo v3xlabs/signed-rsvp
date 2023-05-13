@@ -4,8 +4,12 @@ import { logger } from './utils/logger';
 // Creates the server
 const server = bootstrapServer();
 
-// Start our server on port 1234
-server.listen({ port: 1234 });
+const rn = async () => {
+    // Start our server on port 1234
+    await server.listen({ port: 1234 });
+};
+
+rn();
 
 // Log that we are running
 logger.info('Server running on port 1234');

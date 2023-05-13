@@ -13,18 +13,20 @@ export const bootstrapServer = () => {
     const server = fastify({ logger: true });
 
     server.register(
-        (s) => {
+        (s, c, done) => {
             // Submit a signature and payload directly to the server
             s.post('/', post_signature);
 
             // Get the information associated with a signature and its payload
             s.get('/:sign_id', get_signature);
+
+            done();
         },
         { prefix: '/s' }
     );
 
     server.register(
-        (s) => {
+        (s, c, done) => {
             // Get the information associated with a signature request and its payload
             s.get('/:signreq_id', get_sr);
 
@@ -33,12 +35,14 @@ export const bootstrapServer = () => {
 
             // Create a signature request
             s.post('/', create_sr);
+
+            done();
         },
         { prefix: '/sr' }
     );
 
     server.register(
-        (s) => {
+        (s, c, done) => {
             // Get the information associated with an event
             s.get('/:event_id', get_event);
 
@@ -47,6 +51,8 @@ export const bootstrapServer = () => {
 
             // Create an event
             s.post('/', create_event);
+
+            done();
         },
         { prefix: '/e' }
     );
