@@ -6,7 +6,7 @@ const server = bootstrapServer();
 
 const rn = async () => {
     // Start our server on port 1234
-    await server.listen({ port: 1234, host: '*' });
+    await server.listen({ port: 1234, host: '0.0.0.0' });
 };
 
 rn();
