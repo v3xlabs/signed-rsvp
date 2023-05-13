@@ -17,11 +17,15 @@ const events: Event[] = [
     },
 ];
 
-const signatureStorage: SignatureData[] = [];
-
 export const getEvent = (event_id: string): Event => {
     return events.find((event) => event.id === event_id);
 };
+
+export const saveEvent = (event: Event): void => {
+    events.push(event);
+};
+
+const signatureStorage: SignatureData[] = [];
 
 export const getSignature = (signature_id: string): SignatureData => {
     return signatureStorage.find((sig) => sig.id === signature_id);
