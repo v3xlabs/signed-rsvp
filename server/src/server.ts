@@ -12,6 +12,10 @@ import { post_sr } from './routes/sr/post_sr';
 export const bootstrapServer = () => {
     const server = fastify({ logger: true });
 
+    server.get('/', (request, response) => {
+        response.send('Hello World!');
+    });
+
     server.register(
         (s, c, done) => {
             // Submit a signature and payload directly to the server
