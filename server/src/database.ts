@@ -1,6 +1,8 @@
 // You are going to laugh, I know, but I was too lazy to setup an actual database, so have this instead.
+// TODO: Actually hook up to a db lmeow
 
 import { Event } from './types/event';
+import { SignatureData } from './types/signature_data';
 
 const events: Event[] = [
     {
@@ -14,6 +16,16 @@ const events: Event[] = [
     },
 ];
 
+const signatureStorage: SignatureData[] = [];
+
 export const getEvent = (event_id: string): Event => {
     return events.find((event) => event.id === event_id);
+};
+
+export const getSignature = (signature_id: string): SignatureData => {
+    return signatureStorage.find((sig) => sig.id === signature_id);
+};
+
+export const saveSignature = (signature: SignatureData): void => {
+    signatureStorage.push(signature);
 };
