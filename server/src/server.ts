@@ -1,11 +1,55 @@
 import { fastify } from 'fastify';
 
+import { create_event } from './routes/e/create_event';
+import { get_event } from './routes/e/get_event';
+import { post_event } from './routes/e/post_event';
+import { get_signature } from './routes/s/get_signature';
+import { post_signature } from './routes/s/post_signature';
+import { create_sr } from './routes/sr/create_sr';
+import { get_sr } from './routes/sr/get_sr';
+import { post_sr } from './routes/sr/post_sr';
+
 export const bootstrapServer = () => {
     const server = fastify({ logger: true });
 
-    server.get('/', async () => {
-        return { hello: 'world' };
-    });
+    server.register(
+        (s) => {
+            // Submit a signature and payload directly to the server
+            s.post('/', post_signature);
+
+            // Get the information associated with a signature and its payload
+            s.get('/:sign_id', get_signature);
+        },
+        { prefix: '/s' }
+    );
+
+    server.register(
+        (s) => {
+            // Get the information associated with a signature request and its payload
+            s.get('/:signreq_id', get_sr);
+
+            // Submit a signature to a specific signature request
+            s.post('/:signreq_id', post_sr);
+
+            // Create a signature request
+            s.post('/', create_sr);
+        },
+        { prefix: '/sr' }
+    );
+
+    server.register(
+        (s) => {
+            // Get the information associated with an event
+            s.get('/:event_id', get_event);
+
+            // Submit a signature to a specific event
+            s.post('/:event_id', post_event);
+
+            // Create an event
+            s.post('/', create_event);
+        },
+        { prefix: '/e' }
+    );
 
     return server;
 };

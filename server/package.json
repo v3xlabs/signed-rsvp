@@ -17,7 +17,6 @@
         "buffer": "^6.0.3",
         "commander": "^10.0.1",
         "ethers": "^5.7.2",
-        "fastify": "^4.17.0",
         "node-buffer": "^1.0.3",
         "nodemon": "^2.0.22",
         "ts-node": "^10.9.1"
@@ -32,6 +31,7 @@
         "@typescript-eslint/parser": "^5.58.0",
         "eslint": "^8.38.0",
         "eslint-plugin-v3xlabs": "^1.6.0",
+        "fastify": "^4.17.0",
         "typescript": "^5.0.4"
     }
 }

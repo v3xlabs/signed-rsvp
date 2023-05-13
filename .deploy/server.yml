@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signatureceo-server
+  namespace: signatureceo
+  labels:
+    name: signatureceo-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: signatureceo-server
+  template:
+    metadata:
+      labels:
+        run: signatureceo-server
+    spec:
+      containers:
+        - name: name-rerouter
+          image: "ghcr.io/v3xlabs/signed-rsvp:edge"
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 1234
+              name: "yes"
+              protocol: "TCP"
+          resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: signatureceo-server
+  namespace: signatureceo
+spec:
+  selector:
+    run: signatureceo-server
+  ports:
+  - port: 1234
+    targetPort: 1234
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: signatureceo-server
+  namespace: signatureceo
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: api.signature.ceo
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: signatureceo-server
+                port:
+                  number: 1234
+    - host: api.signed.rsvp
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: signatureceo-server
+                port:
+                  number: 1234
