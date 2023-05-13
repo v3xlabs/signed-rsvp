@@ -22,7 +22,7 @@ const RSVP = () => {
                         </a>
                     </div>
                 </div>
-                <div className="mt-4 text-base flex">Data and Time</div>
+                <div className="mt-4 text-base flex">Date and Time</div>
                 <div className="text-sm text-gray-400 text-left">
                     May 14 · 6pm - May 15 · 2am WEST
                 </div>
