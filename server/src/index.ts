@@ -1,5 +1,3 @@
-import { utils } from 'ethers';
-
 import { bootstrapServer } from './server';
 import { logger } from './utils/logger';
 
