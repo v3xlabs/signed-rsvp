@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
-const fetcher = url => fetch(url).then(r => r.json());
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 type EventData = {
     id: string;
@@ -15,9 +15,10 @@ type EventData = {
 export const useEventData = () => {
     const { query } = useRouter();
     const { event_id } = query;
-    const v = useSWR<EventData>(event_id === null ? null : `https://api.signature.ceo/e/${event_id}`, fetcher);
-
-    console.log('eventdata');
+    const v = useSWR<EventData>(
+        event_id === null ? null : `https://api.signature.ceo/e/${event_id}`,
+        fetcher
+    );
 
     return v;
 };

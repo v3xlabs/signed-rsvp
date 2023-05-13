@@ -1,11 +1,32 @@
+import { useEventData } from '@/hooks/useEventData';
 import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
+    const { data: event } = useEventData();
+    const router = useRouter();
+    const { event_id } = router.query;
+
+    if (!event)
+        return (
+            <div className="h-screen w-screen items-center flex justify-center">
+                <div className="text-2xl">
+                    loading
+                    <span
+                        className="animate-pulse
+                    "
+                    >
+                        ...
+                    </span>
+                </div>
+            </div>
+        );
+
     return (
         <div className="h-screen w-full flex flex-col justify-center items-center">
             <a href="/" className="flex justify-center items-center px-10 py-4">
-                <img src="/ronnie.png" alt="logo" className="w-44 mb-6" />
+                <img src={event.image} alt="logo" className="w-44 mb-6" />
             </a>
             <div className="max-w-md w-full md:px-0 px-6 text-lg">
                 <AnimatePresence>{children}</AnimatePresence>

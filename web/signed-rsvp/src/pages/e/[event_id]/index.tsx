@@ -1,25 +1,39 @@
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import { ConnectKitButton } from 'connectkit';
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
+import { useEventData } from '@/hooks/useEventData';
+import { motion } from 'framer-motion';
 
 const event = () => {
+    const { data: event } = useEventData();
     const router = useRouter();
     const { event_id } = router.query;
 
     const { isConnected } = useAccount();
-    const { push } = useRouter();
     useEffect(() => {
         if (isConnected) {
-            push(`/e/${event_id}/proof`);
+            router.push(`/e/${event_id}/proof`);
         }
     }, [isConnected]);
 
+    if (!event) return <div>loading...</div>;
+
     return (
-        <div className="h-full flex justify-center items-center">
+        <motion.div
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{
+                duration: 0.5,
+                type: 'spring',
+                stiffness: 260,
+                damping: 20,
+            }}
+            className="h-full flex justify-center items-center"
+        >
             <div className="flex-col items-center justify-center flex">
-                <h1 className="text-4xl font-bold">Ronnie wants your RSVP</h1>
+                <h1 className="text-4xl font-bold">{event.text}</h1>
                 <div className="mt-4">
                     <ConnectKitButton.Custom>
                         {({ isConnected, show, address }) => {
@@ -32,7 +46,7 @@ const event = () => {
                     </ConnectKitButton.Custom>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
