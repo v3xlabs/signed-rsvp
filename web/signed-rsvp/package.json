@@ -18,6 +18,7 @@
         "autoprefixer": "^10.4.14",
         "canvas-confetti": "^1.6.0",
         "connectkit": "^1.2.2",
+        "ens-tools": "^0.0.13",
         "ethers": "^5",
         "framer-motion": "^10.11.5",
         "headlessui": "^0.0.0",

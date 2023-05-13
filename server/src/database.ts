@@ -11,8 +11,8 @@ const events: Event[] = [
         text: 'ronnie wants ur rsvp',
         image: '/ronnie.png',
         payload:
-            'I, {name}, solemly pinky promise I will come to rAave in Lisbon 23',
-        post_text: 'Ron E cnt w8 2 C U there!',
+            'I, {name}, solemly pinky promise I will come to rAAVE in Lisbon 23',
+        post_text: 'Ronnie is happy you are coming',
         worldcoin_state: '12356789',
     },
 ];

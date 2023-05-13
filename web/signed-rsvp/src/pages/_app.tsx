@@ -4,7 +4,7 @@ import '@/styles/styles.css';
 import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 import { Nunito } from 'next/font/google';
 import { useRouter } from 'next/router';
-import { createClient, WagmiConfig } from 'wagmi';
+import { createClient, mainnet, WagmiConfig } from 'wagmi';
 import { polygon } from 'wagmi/chains';
 
 import { Layout } from '@/components/layout';
@@ -12,7 +12,7 @@ import { Layout } from '@/components/layout';
 const client = createClient(
     getDefaultClient({
         appName: 'Signed RSVP',
-        chains: [polygon],
+        chains: [mainnet],
     })
 );
 
