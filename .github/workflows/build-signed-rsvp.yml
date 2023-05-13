@@ -12,41 +12,71 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
         with:
-          node-version: 19
+          images: |
+            ghcr.io/v3xlabs/signed-rsvp-web
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=edge
+            type=sha
 
-      - uses: pnpm/action-setup@v2.0.1
-        name: Install pnpm
-        id: pnpm-install
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          version: 7
-          run_install: false
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get pnpm store directory
-        id: pnpm-cache
-        run: |
-          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
-
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./web/signed-rsvp/Dockerfile
+          context: ./web/signed-rsvp
 
-      - name: Install dependencies
-        run: cd web/signed-rsvp && pnpm install
+      # - name: Install Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 19
 
-      - name: Build
-        run: cd web/signed-rsvp && pnpm build
+      # - uses: pnpm/action-setup@v2.0.1
+      #   name: Install pnpm
+      #   id: pnpm-install
+      #   with:
+      #     version: 7
+      #     run_install: false
 
-      - name: Edgeserver Upload
-        uses: lvkdotsh/edgeserver-action@master
-        with:
-          app_id: "180070781609316352"
-          server: https://api.edgeserver.io
-          token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: web/signed-rsvp/out
+      # - name: Get pnpm store directory
+      #   id: pnpm-cache
+      #   run: |
+      #     echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      # - uses: actions/cache@v3
+      #   name: Setup pnpm cache
+      #   with:
+      #     path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pnpm-store-
+
+      # - name: Install dependencies
+      #   run: cd web/signed-rsvp && pnpm install
+
+      # - name: Build
+      #   run: cd web/signed-rsvp && pnpm build
+
+      # - name: Edgeserver Upload
+      #   uses: lvkdotsh/edgeserver-action@master
+      #   with:
+      #     app_id: "180070781609316352"
+      #     server: https://api.edgeserver.io
+      #     token: ${{ secrets.SIGNAL_TOKEN }}
+      #     directory: web/signed-rsvp/out
