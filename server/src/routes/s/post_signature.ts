@@ -30,6 +30,7 @@ export const post_signature: RouteHandler<{
     // Save SignaturesignatureStorage
     saveSignature({
         id: signature_id,
+        address: request.body.address,
         signature: request.body.signature,
         payload: request.body.payload,
         sr_id: request.body.sr_id,
