@@ -10,6 +10,7 @@ import {
     strikeNullifier,
 } from '../../database';
 import { SignatureData } from '../../types/signature_data';
+import { logger } from '../../utils/logger';
 
 const generateSnowflake = generateSunflake();
 
@@ -87,6 +88,8 @@ export const post_event: RouteHandler<{
         };
 
         if (!data || !data.success) {
+            logger.debug(data);
+
             return reply
                 .status(400)
                 .send({ error: 'Invalid worldcoin state post' });
