@@ -15,6 +15,7 @@
         "@chainlink/ccip-read-server": "^0.2.1",
         "@fastify/cors": "^8.2.1",
         "@lvksh/logger": "^1.6.4",
+        "@worldcoin/idkit": "^0.4.9",
         "buffer": "^6.0.3",
         "commander": "^10.0.1",
         "node-buffer": "^1.0.3",

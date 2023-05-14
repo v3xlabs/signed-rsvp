@@ -1,3 +1,4 @@
+import { solidityEncode } from '@worldcoin/idkit';
 import { RouteHandler } from 'fastify';
 import { generateSunflake } from 'sunflake';
 import { verifyMessage } from 'viem';
@@ -68,7 +69,7 @@ export const post_event: RouteHandler<{
                 method: 'POST',
                 body: JSON.stringify({
                     action: 'verify-' + event_id,
-                    signal: signalData,
+                    signal: solidityEncode(signalData.types, signalData.values),
                     credential_type: worldcoinState.credential_type,
                     merkle_root: worldcoinState.merkle_root,
                     nullifier_hash: worldcoinState.nullifier_hash,
