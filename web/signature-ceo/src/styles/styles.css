@@ -11,7 +11,11 @@
 }
 
 .card {
-    @apply border-2 border-gray-400 px-4 py-2 rounded-md;
+    @apply border-2 border-[#202023] rounded-md;
+}
+
+.scard {
+    @apply border-0 bg-[#202023] rounded-md p-4;
 }
 
 body {
@@ -19,5 +23,5 @@ body {
 }
 
 textarea {
-    @apply border-2 border-gray-400 px-4 py-2 rounded-md;
+    @apply border-2 border-[#202023] px-4 py-2 rounded-md bg-[#121212];
 }

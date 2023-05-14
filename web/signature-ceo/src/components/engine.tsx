@@ -12,7 +12,6 @@ export const Engine: FC<PropsWithChildren & { className?: string }> = ({
         initial={{ x: '10%', opacity: 0 }}
         animate={{ x: '0vw', opacity: 1 }}
         exit={{ x: '-1000px', opacity: 1 }}
-        transition={{ duration: 0.6 }}
     >
         {children}
     </motion.div>

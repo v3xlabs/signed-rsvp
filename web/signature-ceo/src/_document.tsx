@@ -4,6 +4,7 @@ import { createClient, WagmiConfig } from 'wagmi';
 
 import { Layout } from './components/layout';
 import { HomePage } from './pages';
+import { ReceiptPage } from './pages/receipt';
 import { SelfSignPage } from './pages/sign';
 
 const client = createClient(
@@ -26,8 +27,8 @@ const router = createBrowserRouter([
                 element: <SelfSignPage />,
             },
             {
-                path: '/:id',
-                element: <></>,
+                path: '/:signature_id',
+                element: <ReceiptPage />,
             },
         ],
     },
