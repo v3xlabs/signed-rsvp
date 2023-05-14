@@ -1,8 +1,8 @@
 import { DisconnectButton } from '@/components/DisconnectButton';
 import { useEventData } from '@/hooks/useEventData';
 import { useRouter } from 'next/router';
-import { useAccount, useEnsName } from 'wagmi';
-import { usePreferredName } from 'ens-tools/dist/react';
+import { useAccount, useEnsName, useSignMessage } from 'wagmi';
+import { motion } from 'framer-motion';
 
 const RSVP = () => {
     const { data: event } = useEventData();
@@ -11,8 +11,41 @@ const RSVP = () => {
     const { address } = useAccount();
     const { data: ensName } = useEnsName({ address });
 
+    const { signMessage, isLoading } = useSignMessage({
+        message: event.payload.replace('{name}', address),
+        async onSuccess(data) {
+            // alert(data);
+            const d = await fetch('https://api.signature.ceo/e/' + event.id, {
+                method: 'POST',
+                body: JSON.stringify({
+                    address: address,
+                    signature: data,
+                    payload: event.payload.replace('{name}', address),
+                }),
+            });
+
+            if (d.status !== 200) {
+                alert('Error: ' + (await d.text()));
+                return;
+            }
+
+            router.push('/e/' + event.id + '/confirmation');
+        },
+    });
+
     return (
-        <div className="flex justify-center items-center flex-col">
+        <motion.div
+            initial={{ opacity: 0, x: 300 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -300 }}
+            transition={{
+                duration: 0.5,
+                type: 'spring',
+                stiffness: 260,
+                damping: 20,
+            }}
+            className="flex justify-center items-center flex-col"
+        >
             <div className="flex-col items-center flex">
                 <h1 className="text-4xl font-bold">rAAVE Lisbon II</h1>
                 <div className="mt-4 text-base flex border-[1px] border-black p-4 w-full text-gray-700 flex-col">
@@ -47,10 +80,12 @@ const RSVP = () => {
                 <div className="text-sm text-gray-400 text-left">
                     May 14 · 6pm - May 15 · 2am WEST
                 </div>
-                <button className="rsvpbtn">RSVP</button>
+                <button className="rsvpbtn" onClick={() => signMessage()}>
+                    {isLoading ? 'Check your wallet...' : 'RSVP'}
+                </button>
             </div>
             <DisconnectButton />
-        </div>
+        </motion.div>
     );
 };
 

@@ -25,7 +25,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 
     return (
         <div className="h-screen w-full flex flex-col justify-center items-center">
-            <a href="/" className="flex justify-center items-center px-10 py-4">
+            <a
+                href={`/e/${event_id}`}
+                className="flex justify-center items-center px-10 py-4"
+            >
                 <img
                     src={event.image}
                     alt="logo"

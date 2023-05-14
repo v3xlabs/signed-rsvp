@@ -12,7 +12,7 @@ export default function Document() {
                 <link
                     rel="icon"
                     type="image/png"
-                    href="https://signed.rsvp/public/ticket-favicon.png"
+                    href="https://signed.rsvp/ticket-favicon.png"
                 />
                 {/* <!-- Open Graph / Facebook --> */}
                 <meta property="og:type" content="website" />
