@@ -6,6 +6,8 @@ import { Layout } from './components/layout';
 import { HomePage } from './pages';
 import { ReceiptPage } from './pages/receipt';
 import { SelfSignPage } from './pages/sign';
+import { WritePage } from './pages/write';
+import { SignatureRequestPage } from './pages/sr';
 
 const client = createClient(
     getDefaultClient({
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
             {
                 path: '/s',
                 element: <SelfSignPage />,
+            },
+            {
+                path: '/sr/:signature_id',
+                element: <SignatureRequestPage />,
+            },
+            {
+                path: '/sr',
+                element: <WritePage />,
             },
             {
                 path: '/:signature_id',

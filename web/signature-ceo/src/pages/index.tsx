@@ -10,9 +10,9 @@ export const HomePage = () => {
                 <Link to="/s" className="btn w-full">
                     Let me sign
                 </Link>
-                <button className="btn w-full">
+                <Link to="/sr" className="btn w-full">
                     Someone else gonna sign this one
-                </button>
+                </Link>
             </div>
         </Engine>
     );
