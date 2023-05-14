@@ -50,13 +50,25 @@ export const post_event: RouteHandler<{
             return reply.status(400).send({ error: 'Nullifier already used' });
         }
 
+        const signalData = JSON.parse(worldcoinState.signal) as {
+            types: string[];
+            values: string[];
+        };
+
+        if (
+            signalData.types[0] !== 'uint256' ||
+            signalData.values[0] !== event_id
+        ) {
+            return reply.status(400).send({ error: 'Invalid signal data' });
+        }
+
         const response = await fetch(
             'https://developer.worldcoin.org/api/v1/verify/app_f5478af5a1f1e3a769b30b95e7cf0aa3',
             {
                 method: 'POST',
                 body: JSON.stringify({
                     action: 'verify-' + event_id,
-                    signal: worldcoinState.signal,
+                    signal: signalData,
                     credential_type: worldcoinState.credential_type,
                     merkle_root: worldcoinState.merkle_root,
                     nullifier_hash: worldcoinState.nullifier_hash,
