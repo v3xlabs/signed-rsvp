@@ -8,6 +8,11 @@ import dynamic from 'next/dynamic';
 import { useAccount } from 'wagmi';
 import { useEffect } from 'react';
 
+const IDKitWidget = dynamic(
+    () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
+    { ssr: false }
+);
+
 const ProofOfPersonhood = () => {
     const { data: event } = useEventData();
     const router = useRouter();
@@ -19,11 +24,6 @@ const ProofOfPersonhood = () => {
             router.push(`/e/${event_id}`);
         }
     }, [isConnected]);
-
-    const IDKitWidget = dynamic(
-        () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
-        { ssr: false }
-    );
 
     const onSuccess = (result: ISuccessResult) => {
         // Yes miguel, we did console log it :tongue:
