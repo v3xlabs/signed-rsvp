@@ -67,9 +67,9 @@ const RSVP = () => {
                         {event.payload
                             .split('{name}')
                             .reduce(
-                                (c, e, index, a) => [
+                                (c, entry, index, a) => [
                                     ...c,
-                                    e,
+                                    entry,
                                     index != a.length - 1 ? (
                                         <b>{ensName || address}</b>
                                     ) : undefined,

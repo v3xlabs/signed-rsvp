@@ -114,6 +114,7 @@ const ConfirmationPage = () => {
                             <img
                                 className="inline-block ml-2 rounded-full w-6"
                                 src={ensAvatar}
+                                alt=""
                             />
                         </div>
                         <p className="text-xs text-gray-600 font-light mr-28">
