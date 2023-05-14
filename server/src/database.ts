@@ -8,10 +8,12 @@ import { SignatureRequest } from './types/signature_request';
 const events: Event[] = [
     {
         id: '123456789',
+        date: 'May 14, 2023 @ 6 PM',
+        title: 'rAAVE Lisbon II',
         text: 'ronnie wants ur rsvp',
         image: '/ronnie.png',
         payload:
-            'I, {name}, solemly pinky promise I will come to rAAVE in Lisbon 23',
+            "I, {name}, solemly pinky promise I will come to rAAVE in Lisbon '23",
         post_text: 'Ronnie is happy you are coming',
         worldcoin_state: '12356789',
     },

@@ -8,6 +8,8 @@ const generateSnowflake = generateSunflake();
 export const create_event: RouteHandler<{
     Body: {
         text: string;
+        date: string;
+        title: string;
         post_text: string;
         image: string;
         worldcoin_state?: string;
@@ -19,6 +21,8 @@ export const create_event: RouteHandler<{
     // Save Event
     saveEvent({
         id: event_id,
+        date: request.body.date,
+        title: request.body.title,
         text: request.body.text,
         post_text: request.body.post_text,
         image: request.body.image,

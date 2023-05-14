@@ -3,6 +3,7 @@ import { useEventData } from '@/hooks/useEventData';
 import { useRouter } from 'next/router';
 import { useAccount, useEnsName, useSignMessage } from 'wagmi';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 const RSVP = () => {
     const { data: event } = useEventData();
@@ -10,6 +11,15 @@ const RSVP = () => {
 
     const { address } = useAccount();
     const { data: ensName } = useEnsName({ address });
+
+    const { event_id } = router.query;
+
+    const { isConnected } = useAccount();
+    useEffect(() => {
+        if (!isConnected) {
+            router.push(`/e/${event_id}`);
+        }
+    }, [isConnected]);
 
     const { signMessage, isLoading } = useSignMessage({
         message: event.payload.replace('{name}', address),
@@ -21,6 +31,7 @@ const RSVP = () => {
                     address: address,
                     signature: data,
                     payload: event.payload.replace('{name}', address),
+                    worldcoin: localStorage.getItem(`worldcoin-${event.id}`),
                 }),
             });
 
