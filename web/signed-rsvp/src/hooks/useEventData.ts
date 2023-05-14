@@ -19,6 +19,7 @@ export const useEventData = () => {
     const { event_id } = query;
 
     return useSWR<EventData>(
+        // eslint-disable-next-line unicorn/no-null
         event_id === null ? null : `https://api.signature.ceo/e/${event_id}`,
         fetcher
     );
