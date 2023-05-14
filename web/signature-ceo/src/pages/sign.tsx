@@ -41,41 +41,49 @@ export const SelfSignPage = () => {
 
     return (
         <Engine>
-            <textarea
-                className="w-full p-4 outline-0 focus-within:border focus-within:border-blue-500"
-                onChange={(v) => {
-                    setText(v.target.value);
-                }}
-                rows={8}
-            />
-            {/* <button>Include current date & time</button> */}
-            {isConnected && (
-                <div className="text-sm">
-                    You're signing this as {address}.{' '}
-                    <button onClick={() => disconnect()}>
-                        Use a different wallet
-                    </button>
+            <div className="flex flex-col gap-4">
+                <div className="text-gray-300 p-4">
+                    This message you write below will be the message signed by{' '}
+                    <b>you</b> after clicking the `connect` / `sign` button you
+                    will receive a sharable-link you can use to distribute your
+                    signature.
                 </div>
-            )}
-            {!isConnected ? (
-                <ConnectKitButton.Custom>
-                    {({ show }) => (
-                        <button className="btn w-full" onClick={show}>
-                            Connect
-                        </button>
-                    )}
-                </ConnectKitButton.Custom>
-            ) : (
-                <button
-                    className="btn w-full"
-                    onClick={() => {
-                        signMessage();
+                <textarea
+                    className="w-full p-4 outline-0 focus-within:border focus-within:border-blue-500"
+                    onChange={(v) => {
+                        setText(v.target.value);
                     }}
-                    disabled={text.trim().length === 0}
-                >
-                    {isLoading ? 'Check your wallet...' : 'Sign'}
-                </button>
-            )}
+                    rows={8}
+                />
+                {/* <button>Include current date & time</button> */}
+                {isConnected && (
+                    <div className="text-sm">
+                        You're signing this as {address}.{' '}
+                        <button onClick={() => disconnect()}>
+                            Use a different wallet
+                        </button>
+                    </div>
+                )}
+                {!isConnected ? (
+                    <ConnectKitButton.Custom>
+                        {({ show }) => (
+                            <button className="btn w-full" onClick={show}>
+                                Connect
+                            </button>
+                        )}
+                    </ConnectKitButton.Custom>
+                ) : (
+                    <button
+                        className="btn w-full"
+                        onClick={() => {
+                            signMessage();
+                        }}
+                        disabled={text.trim().length === 0}
+                    >
+                        {isLoading ? 'Check your wallet...' : 'Sign'}
+                    </button>
+                )}
+            </div>
         </Engine>
     );
 };

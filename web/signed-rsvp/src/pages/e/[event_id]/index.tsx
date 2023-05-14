@@ -1,7 +1,6 @@
 import { ConnectKitButton } from 'connectkit';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import { useEventData } from '@/hooks/useEventData';
@@ -12,12 +11,6 @@ const event = () => {
     const { event_id } = router.query;
 
     const { isConnected } = useAccount();
-
-    useEffect(() => {
-        if (isConnected) {
-            router.push(`/e/${event_id}/proof`);
-        }
-    }, [isConnected]);
 
     if (!event) return <div>loading...</div>;
 
@@ -38,7 +31,23 @@ const event = () => {
                 <h1 className="text-4xl font-bold">{event.text}</h1>
                 <div className="mt-4">
                     <ConnectKitButton.Custom>
-                        {({ isConnected, show, address }) => {
+                        {({ isConnected, show, address, ensName }) => {
+                            if (isConnected) {
+                                return (
+                                    <button
+                                        onClick={() => {
+                                            router.push(`/e/${event_id}/proof`);
+                                        }}
+                                        className="rsvpbtn"
+                                    >
+                                        <span>
+                                            Continue as{' '}
+                                            <b>{ensName || address}</b>
+                                        </span>
+                                    </button>
+                                );
+                            }
+
                             return (
                                 <button onClick={show} className="rsvpbtn">
                                     {isConnected ? address : 'Connect Wallet'}

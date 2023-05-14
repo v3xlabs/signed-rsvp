@@ -1,4 +1,5 @@
-import type { ISuccessResult } from '@worldcoin/idkit';
+import { CredentialType, ISuccessResult } from '@worldcoin/idkit';
+import { solidityEncode } from '@worldcoin/idkit';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -56,11 +57,15 @@ const ProofOfPersonhood = () => {
                 <FaUserCircle className="ml-2" />
             </div>
             <IDKitWidget
-                action="verify"
                 app_id="app_f5478af5a1f1e3a769b30b95e7cf0aa3"
+                action="yes"
                 autoClose
                 onSuccess={onSuccess}
-                signal=""
+                signal={solidityEncode(['uint256'], [event_id])}
+                action_description="Verify your identity to RSVP for this event."
+                credential_types={[CredentialType.Orb, CredentialType.Phone]}
+                enableTelemetry={false}
+                theme="light"
             >
                 {({ open }) => (
                     <button className="rsvpbtn" onClick={() => open()}>
