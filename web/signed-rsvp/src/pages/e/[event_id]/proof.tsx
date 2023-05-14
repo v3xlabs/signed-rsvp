@@ -61,7 +61,7 @@ const ProofOfPersonhood = () => {
                 signal=""
             >
                 {({ open }) => (
-                    <button className="rsvpbtn" onClick={open}>
+                    <button className="rsvpbtn" onClick={() => open()}>
                         Verify
                     </button>
                 )}
