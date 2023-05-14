@@ -5,6 +5,8 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 
 type EventData = {
     id: string;
+    title: string;
+    date: string;
     text: string;
     post_text: string;
     image: string;
