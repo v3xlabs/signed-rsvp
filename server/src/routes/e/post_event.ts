@@ -2,9 +2,13 @@ import { RouteHandler } from 'fastify';
 import { generateSunflake } from 'sunflake';
 import { verifyMessage } from 'viem';
 
-import { getEvent, saveSignature } from '../../database';
+import {
+    getEvent,
+    isNullifierStruck,
+    saveSignature,
+    strikeNullifier,
+} from '../../database';
 import { SignatureData } from '../../types/signature_data';
-import { logger } from '../../utils/logger';
 
 const generateSnowflake = generateSunflake();
 
@@ -36,28 +40,45 @@ export const post_event: RouteHandler<{
     if (eventData.worldcoin_state) {
         const worldcoinState = JSON.parse(worldcoin) as {
             credential_type: 'orb' | 'phone';
-            merke_root: string;
+            merkle_root: string;
             nullifier_hash: string;
             proof: string;
             signal: string;
         };
 
+        if (isNullifierStruck(event_id, worldcoinState.nullifier_hash)) {
+            return reply.status(400).send({ error: 'Nullifier already used' });
+        }
+
         const response = await fetch(
             'https://developer.worldcoin.org/api/v1/verify/app_f5478af5a1f1e3a769b30b95e7cf0aa3',
             {
+                method: 'POST',
                 body: JSON.stringify({
                     action: 'verify-' + event_id,
                     signal: worldcoinState.signal,
                     credential_type: worldcoinState.credential_type,
-                    merkle_root: worldcoinState.merke_root,
+                    merkle_root: worldcoinState.merkle_root,
                     nullifier_hash: worldcoinState.nullifier_hash,
                     proof: worldcoinState.proof,
                 }),
             }
         );
 
-        // TODO: use
-        logger.debug(response);
+        const data = (await response.json()) as {
+            success: boolean;
+            nullifier_hash: string;
+            action: string;
+            created_at: string;
+        };
+
+        if (!data || !data.success) {
+            return reply
+                .status(400)
+                .send({ error: 'Invalid worldcoin state post' });
+        }
+
+        strikeNullifier(event_id, data.nullifier_hash);
     }
 
     if (payload !== eventData.payload.replace('{name}', address)) {

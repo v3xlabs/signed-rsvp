@@ -13,6 +13,7 @@ const events: Event[] = [
         text: 'ronnie wants ur rsvp',
         image: '/ronnie.png',
         payload:
+            // eslint-disable-next-line quotes
             "I, {name}, solemly pinky promise I will come to rAAVE in Lisbon '23",
         post_text: 'Ronnie is happy you are coming',
         worldcoin_state: '12356789',
@@ -49,4 +50,16 @@ export const getSignatureRequest = (
     signatureRequest_id: string
 ): SignatureRequest => {
     return signatureRequestStorage.find((sr) => sr.id === signatureRequest_id);
+};
+
+export const strikeNullifier = (event_id: string, nullifier: string): void => {
+    // Yes
+};
+
+export const isNullifierStruck = (
+    event_id: string,
+    nullifier: string
+): boolean => {
+    // Yes
+    return false;
 };

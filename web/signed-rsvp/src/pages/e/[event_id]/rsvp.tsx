@@ -29,6 +29,9 @@ const RSVP = () => {
             // alert(data);
             const d = await fetch('https://api.signature.ceo/e/' + event.id, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     address: address,
                     signature: data,
