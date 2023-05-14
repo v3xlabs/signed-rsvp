@@ -1,6 +1,7 @@
+import { ConnectKitButton } from 'connectkit';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAccount, useSignMessage } from 'wagmi';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
 
 import { Engine } from '@/components/engine';
 
@@ -8,7 +9,8 @@ const genPayload = (text: string) => `---- SIGNATURE CEO ----\n${text}`;
 
 export const SelfSignPage = () => {
     const [text, setText] = useState('');
-    const { address } = useAccount();
+    const { address, isConnected } = useAccount();
+    const { disconnect } = useDisconnect();
     const navigate = useNavigate();
     const { signMessage, isLoading } = useSignMessage({
         message: genPayload(text),
@@ -46,14 +48,34 @@ export const SelfSignPage = () => {
                 }}
                 rows={8}
             />
-            <button
-                className="btn w-full"
-                onClick={() => {
-                    signMessage();
-                }}
-            >
-                {isLoading ? 'Check your wallet...' : 'Sign'}
-            </button>
+            {/* <button>Include current date & time</button> */}
+            {isConnected && (
+                <div className="text-sm">
+                    You're signing this as {address}.{' '}
+                    <button onClick={() => disconnect()}>
+                        Use a different wallet
+                    </button>
+                </div>
+            )}
+            {!isConnected ? (
+                <ConnectKitButton.Custom>
+                    {({ show }) => (
+                        <button className="btn w-full" onClick={show}>
+                            Connect
+                        </button>
+                    )}
+                </ConnectKitButton.Custom>
+            ) : (
+                <button
+                    className="btn w-full"
+                    onClick={() => {
+                        signMessage();
+                    }}
+                    disabled={text.trim().length === 0}
+                >
+                    {isLoading ? 'Check your wallet...' : 'Sign'}
+                </button>
+            )}
         </Engine>
     );
 };

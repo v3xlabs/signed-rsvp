@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 export const Document = () => {
     return (
         <WagmiConfig client={client}>
-            <ConnectKitProvider theme="minimal" mode="light">
+            <ConnectKitProvider theme="auto" mode="dark">
                 <RouterProvider router={router} />
             </ConnectKitProvider>
         </WagmiConfig>
