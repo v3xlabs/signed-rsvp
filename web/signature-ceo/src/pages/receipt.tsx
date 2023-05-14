@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import { verifyMessage } from 'viem';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 
+import { ShareButton } from '@/components/sharebtn';
+
 const fetcher = (url: string) => fetch(url).then((response) => response.json());
 
 const Verifier: FC<{
@@ -139,14 +141,7 @@ export const ReceiptPage = () => {
                     value={data.signature}
                 />
             </div>
-            <button
-                className="btn"
-                onClick={() => {
-                    navigator.share({ url: location.toString() });
-                }}
-            >
-                Share
-            </button>
+            <ShareButton />
         </div>
     );
 };
