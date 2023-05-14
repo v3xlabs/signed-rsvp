@@ -44,21 +44,19 @@ export const post_event: RouteHandler<{
             merkle_root: string;
             nullifier_hash: string;
             proof: string;
-            signal: string;
+            signal: {
+                types: string[];
+                values: string[];
+            };
         };
 
         if (isNullifierStruck(event_id, worldcoinState.nullifier_hash)) {
             return reply.status(400).send({ error: 'Nullifier already used' });
         }
 
-        const signalData = JSON.parse(worldcoinState.signal) as {
-            types: string[];
-            values: string[];
-        };
-
         if (
-            signalData.types[0] !== 'uint256' ||
-            signalData.values[0] !== event_id
+            worldcoinState.signal.types[0] !== 'uint256' ||
+            worldcoinState.signal.values[0] !== event_id
         ) {
             return reply.status(400).send({ error: 'Invalid signal data' });
         }
@@ -69,7 +67,10 @@ export const post_event: RouteHandler<{
                 method: 'POST',
                 body: JSON.stringify({
                     action: 'verify-' + event_id,
-                    signal: solidityEncode(signalData.types, signalData.values),
+                    signal: solidityEncode(
+                        worldcoinState.signal.types,
+                        worldcoinState.signal.values
+                    ),
                     credential_type: worldcoinState.credential_type,
                     merkle_root: worldcoinState.merkle_root,
                     nullifier_hash: worldcoinState.nullifier_hash,
