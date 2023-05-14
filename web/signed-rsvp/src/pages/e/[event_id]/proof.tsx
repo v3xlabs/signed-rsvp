@@ -1,26 +1,26 @@
+import type { ISuccessResult } from '@worldcoin/idkit';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
+import { useAccount } from 'wagmi';
+
 import { DisconnectButton } from '@/components/DisconnectButton';
 import { useEventData } from '@/hooks/useEventData';
-import { motion } from 'framer-motion';
-import { Router, useRouter } from 'next/router';
-import { FaUserCircle } from 'react-icons/fa';
-import type { ISuccessResult } from '@worldcoin/idkit';
-import dynamic from 'next/dynamic';
-import { useAccount } from 'wagmi';
-import { useEffect } from 'react';
-import { IDKitWidget, useIDKit } from '@worldcoin/idkit';
 
-// const IDKitWidget = dynamic(
-//     () => import('@worldcoin/idkit').then((mod) => mod.IDKitWidget),
-//     { ssr: false }
-// );
+const IDKitWidget = dynamic(
+    () => import('@worldcoin/idkit').then((module_) => module_.IDKitWidget),
+    { ssr: false }
+);
 
 const ProofOfPersonhood = () => {
     const { data: event } = useEventData();
     const router = useRouter();
     const { event_id } = router.query;
-    const { setOpen } = useIDKit();
 
     const { isConnected } = useAccount();
+
     useEffect(() => {
         if (!isConnected) {
             router.push(`/e/${event_id}`);
@@ -55,14 +55,10 @@ const ProofOfPersonhood = () => {
                 This event requires Proof of Personhood
                 <FaUserCircle className="ml-2" />
             </div>
-            <button onClick={() => {
-                setOpen(true);
-            }}>
-                debugboi
-            </button>
             <IDKitWidget
                 action="verify"
                 app_id="app_f5478af5a1f1e3a769b30b95e7cf0aa3"
+                autoClose
                 onSuccess={onSuccess}
                 signal=""
             >
@@ -73,7 +69,7 @@ const ProofOfPersonhood = () => {
                 )}
             </IDKitWidget>
             <DisconnectButton />
-        </motion.div >
+        </motion.div>
     );
 };
 

@@ -1,9 +1,10 @@
-import { useRouter } from 'next/router';
 import { ConnectKitButton } from 'connectkit';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAccount } from 'wagmi';
+
 import { useEventData } from '@/hooks/useEventData';
-import { motion } from 'framer-motion';
 
 const event = () => {
     const { data: event } = useEventData();
@@ -11,6 +12,7 @@ const event = () => {
     const { event_id } = router.query;
 
     const { isConnected } = useAccount();
+
     useEffect(() => {
         if (isConnected) {
             router.push(`/e/${event_id}/proof`);

@@ -1,7 +1,8 @@
-import { useEventData } from '@/hooks/useEventData';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useDisconnect } from 'wagmi';
-import { motion } from 'framer-motion';
+
+import { useEventData } from '@/hooks/useEventData';
 
 export const DisconnectButton = () => {
     const { disconnect } = useDisconnect();

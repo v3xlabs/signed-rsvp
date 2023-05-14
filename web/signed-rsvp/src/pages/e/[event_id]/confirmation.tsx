@@ -1,10 +1,10 @@
-import { DisconnectButton } from '@/components/DisconnectButton';
-import { useEventData } from '@/hooks/useEventData';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { connected } from 'process';
 import { useEffect } from 'react';
 import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
+
+import { DisconnectButton } from '@/components/DisconnectButton';
+import { useEventData } from '@/hooks/useEventData';
 
 const ConfirmationPage = () => {
     const { data: event } = useEventData();
@@ -16,6 +16,7 @@ const ConfirmationPage = () => {
     const { event_id } = router.query;
 
     const { isConnected } = useAccount();
+
     useEffect(() => {
         if (!isConnected) {
             router.push(`/e/${event_id}`);

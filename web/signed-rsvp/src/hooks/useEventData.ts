@@ -17,10 +17,9 @@ type EventData = {
 export const useEventData = () => {
     const { query } = useRouter();
     const { event_id } = query;
-    const v = useSWR<EventData>(
+
+    return useSWR<EventData>(
         event_id === null ? null : `https://api.signature.ceo/e/${event_id}`,
         fetcher
     );
-
-    return v;
 };

@@ -5,7 +5,6 @@ import { ConnectKitProvider, getDefaultClient } from 'connectkit';
 import { Nunito } from 'next/font/google';
 import { useRouter } from 'next/router';
 import { createClient, mainnet, WagmiConfig } from 'wagmi';
-import { polygon } from 'wagmi/chains';
 
 import { Layout } from '@/components/layout';
 

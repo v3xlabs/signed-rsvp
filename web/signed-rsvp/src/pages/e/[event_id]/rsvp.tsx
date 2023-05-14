@@ -1,9 +1,10 @@
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useAccount, useEnsName, useSignMessage } from 'wagmi';
+
 import { DisconnectButton } from '@/components/DisconnectButton';
 import { useEventData } from '@/hooks/useEventData';
-import { useRouter } from 'next/router';
-import { useAccount, useEnsName, useSignMessage } from 'wagmi';
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 
 const RSVP = () => {
     const { data: event } = useEventData();
@@ -15,6 +16,7 @@ const RSVP = () => {
     const { event_id } = router.query;
 
     const { isConnected } = useAccount();
+
     useEffect(() => {
         if (!isConnected) {
             router.push(`/e/${event_id}`);
@@ -37,6 +39,7 @@ const RSVP = () => {
 
             if (d.status !== 200) {
                 alert('Error: ' + (await d.text()));
+
                 return;
             }
 
@@ -64,10 +67,10 @@ const RSVP = () => {
                         {event.payload
                             .split('{name}')
                             .reduce(
-                                (c, e, i, a) => [
+                                (c, e, index, a) => [
                                     ...c,
                                     e,
-                                    i != a.length - 1 ? (
+                                    index != a.length - 1 ? (
                                         <b>{ensName || address}</b>
                                     ) : undefined,
                                 ],

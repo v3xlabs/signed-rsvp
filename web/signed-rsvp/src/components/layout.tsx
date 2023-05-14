@@ -1,7 +1,8 @@
-import { useEventData } from '@/hooks/useEventData';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { FC, PropsWithChildren } from 'react';
+
+import { useEventData } from '@/hooks/useEventData';
 
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
     const { data: event } = useEventData();
