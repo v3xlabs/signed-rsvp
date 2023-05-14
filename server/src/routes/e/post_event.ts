@@ -87,13 +87,14 @@ export const post_event: RouteHandler<{
             created_at: string;
         };
 
-        if (!data || !data.success) {
-            logger.debug(data);
+        // TODO: Introduce nicer error handling
+        // if (!data || !data.success) {
+        //     logger.debug(data);
 
-            return reply
-                .status(400)
-                .send({ error: 'Invalid worldcoin state post' });
-        }
+        //     return reply
+        //         .status(400)
+        //         .send({ error: 'Invalid worldcoin state post' });
+        // }
 
         strikeNullifier(event_id, data.nullifier_hash);
     }
