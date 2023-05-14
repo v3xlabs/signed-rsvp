@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { FiCopy } from 'react-icons/fi';
 import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
 
 import { DisconnectButton } from '@/components/DisconnectButton';
@@ -94,21 +95,33 @@ const ConfirmationPage = () => {
                         <p className="text-sm text-gray-500 font-semibold mt-1 mr-28">
                             {event.date}
                         </p>
-                        <p className="text-sm text-gray-500 font-light mt-6 mr-28">
-                            {event.post_text}
-                            <div>
-                                RSVP provided by{' '}
-                                <a
-                                    className="underline"
-                                    href="https://signature.ceo"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {' '}
-                                    signature.ceo
-                                </a>
-                            </div>
-                        </p>
+                        <div className="flex gap-2 items-center mt-6 mr-28">
+                            <p className="text-sm text-gray-500 font-light w-fit">
+                                {event.post_text}
+                                <div>
+                                    RSVP provided by{' '}
+                                    <a
+                                        className="underline"
+                                        href="https://signature.ceo"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {' '}
+                                        signature.ceo
+                                    </a>
+                                </div>
+                            </p>
+                            <a
+                                href={
+                                    'https://signature.ceo/' +
+                                    localStorage.getItem('receipt-' + event.id)
+                                }
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <FiCopy />
+                            </a>
+                        </div>
                         <div className="text-xs text-gray-500 font-light mt-8 mr-28">
                             {ensName || address}
                             <img

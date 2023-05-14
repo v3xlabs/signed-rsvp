@@ -46,6 +46,10 @@ const RSVP = () => {
                 return;
             }
 
+            const { id } = await d.json();
+
+            localStorage.setItem(`receipt-${event.id}`, id);
+
             router.push('/e/' + event.id + '/confirmation');
         },
     });
