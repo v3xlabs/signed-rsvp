@@ -33,7 +33,13 @@ const ProofOfPersonhood = () => {
         console.log(result);
 
         // JK we are actually saving this and using it later
-        localStorage.setItem('worldcoin-' + event_id, JSON.stringify(result));
+        localStorage.setItem(
+            'worldcoin-' + event_id,
+            JSON.stringify({
+                ...result,
+                signal: solidityEncode(['uint256'], [event_id]),
+            })
+        );
 
         router.push('/e/' + event_id + '/rsvp');
     };
@@ -58,7 +64,7 @@ const ProofOfPersonhood = () => {
             </div>
             <IDKitWidget
                 app_id="app_f5478af5a1f1e3a769b30b95e7cf0aa3"
-                action="yes"
+                action={'verify-' + event.id}
                 autoClose
                 onSuccess={onSuccess}
                 signal={solidityEncode(['uint256'], [event_id])}
