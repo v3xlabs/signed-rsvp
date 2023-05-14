@@ -1,14 +1,13 @@
 <h1><a href="signature.ceo"><img src=".github/banner.png" alt="signature.ceo / signed.rsvp"></a></h1>
 
-### So why two projects?
-
-Its a long story. TLDR; Signatures are cool 😎. And we don't have enough time to write a competent readme as the end of the hackathon is near 🙈
-
 > **Note**
 >
 > This project was built during [ETHGlobal Lisbon](https://wagmi.sh/),<br />
 > a time-limited hackathon, and therefore project state is not feature complete.
 
+### So why two projects?
+
+Its a long story. TLDR; Signatures are cool 😎. And we don't have enough time to write a competent readme as the end of the hackathon is near 🙈
 
 <h2><a href="https://signature.ceo" target="_blank">signature.ceo</a></h2>
 
